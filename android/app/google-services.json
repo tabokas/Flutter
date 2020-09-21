@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1075058581264",
+    "firebase_url": "https://forte-app-v1.firebaseio.com",
+    "project_id": "forte-app-v1",
+    "storage_bucket": "forte-app-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075058581264:android:80159aae05da77eabe0f95",
+        "android_client_info": {
+          "package_name": "com.forte.forteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075058581264-nivqekun3qn7v7c6grhb60ea1bbl26on.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq-_349dzpndrKWetAEJyYWnptfp9nlgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075058581264-nivqekun3qn7v7c6grhb60ea1bbl26on.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1075058581264-43pfiuot9ebje4ref6racb5o4dg41mmt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.forte.forteapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
