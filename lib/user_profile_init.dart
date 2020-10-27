@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:forteapp/coach_profiles_page.dart';
+import 'package:forteapp/skills_rates_page.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:forteapp/registration_page.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -16,15 +17,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:forteapp/services/cloud_storage_service.dart';
 import 'package:auro_avatar/auro_avatar.dart';
 import 'package:flutter/widgets.dart';
-import 'package:forteapp/payment_location.dart';
 
 enum TypeOfID { idNumber, Passport }
 TypeOfID selectedType;
 
 File _pickedImage;
 Firestore _firestore = Firestore.instance;
-//added
-String fileName = DateTime.now().microsecondsSinceEpoch.toString();
 String _retrievedImageUrl;
 
 Future<CloudStorageResult> uploadImage({
@@ -39,10 +37,7 @@ Future<CloudStorageResult> uploadImage({
   final StorageReference firebaseStorageRef =
       FirebaseStorage.instance.ref().child(fileName);
 
-  //below removed and replaced
-  //StorageUploadTask uploadTask = firebaseStorageRef.putFile(_pickedImage);
-  StorageUploadTask uploadTask =
-      firebaseStorageRef.child("fileName").putFile(_pickedImage);
+  StorageUploadTask uploadTask = firebaseStorageRef.putFile(_pickedImage);
 
   StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
 
@@ -158,7 +153,7 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
   DateTime _date = DateTime.now();
 
   // File imageFile;
-  //final _picker = ImagePicker();
+  final _picker = ImagePicker();
 
   //final picker = ImagePicker();
 
@@ -195,7 +190,7 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
     }
   }
 
-  //File _pickedImage;
+  File _pickedImage;
   List<File> _pickedImageList = List();
   List<String> _pickedImageUrls = List();
   Firestore _firestore = Firestore.instance;
@@ -254,12 +249,6 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
           );
         });
   }
-
-  final _picker = ImagePicker();
-  File _pickedImage;
-  File pictureImage;
-  PickedFile picture;
-  String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -362,8 +351,7 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
                         ),
                       ),
                       Text(
-                        " ",
-                        //"${widget.usertypevalue}",
+                        "${widget.usertypevalue}",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 12,
@@ -732,7 +720,7 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
                     height: MediaQuery.of(context).size.height * 0.08,
                     child: RaisedButton(
                         child: Text(
-                          "SAVE CHANGES",
+                          "SAVE & NEXT",
                           style: TextStyle(
                             fontFamily: 'SöhneBreitTest',
                             fontWeight: FontWeight.bold,
@@ -750,24 +738,20 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
                         ),
                         onPressed: () async {
                           if (_pickedImage != null) {
-                            var filePath =
-                                'ProfileImages/${DateTime.now()}.png';
                             StorageReference ref =
                                 FirebaseStorage.instance.ref();
                             StorageTaskSnapshot addImg = await ref
-                                .child(filePath)
+                                .child("fileName")
                                 .putFile(_pickedImage)
                                 .onComplete;
                             if (addImg.error == null) {
                               print("added profile photo to Firebase Storage");
-                              //uploadMultipleImages();
-
+                              uploadMultipleImages();
                               setState(() {
                                 _formKey.currentState.save();
                               } //   showSpinner = true;
                                   );
                               try {
-                                imageUrl = await addImg.ref.getDownloadURL();
                                 print(loggedinuserid);
                                 print(loggedinuseremail);
                                 await Firestore.instance
@@ -780,23 +764,17 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
                                   'typeofid': typeOfIDString,
                                   'idnumber': idNumber,
                                   'usertype': "$usertypevalue",
-                                  'profilepicture': imageUrl,
                                 });
                                 //print(password);
                                 //  final newUser =
                                 //     await _auth.createUserWithEmailAndPassword(
                                 //        email: email, password: password);
                                 //if (newUser != null) {
-                                "$usertypevalue" == "Instructor"
-                                    ? Navigator.pushNamed(
-                                        context, PaymentLocationPage.id)
-                                    : Navigator.pushNamed(
-                                        context, CoachProfilesPage.id);
-                                print(usertypevalue);
+                                Navigator.pushNamed(
+                                    context, SkillsRatesPage.id);
                                 //}
                                 setState(() {
-                                  print("got to end");
-                                  //showSpinner = false;
+                                  showSpinner = false;
                                 });
                               } catch (e) {
                                 print(e);
