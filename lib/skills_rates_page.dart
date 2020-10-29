@@ -45,6 +45,13 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
   bool _wellnessCoachChecked = false;
   bool _strengthChecked = false;
 
+  bool _isEnablePersonal = false;
+  bool _isEnableYoga = false;
+  bool _isEnableWellness = false;
+  bool _isEnabledStrength = false;
+
+
+
   //_UserProfileInitPageState(this.userType);
 
   // TextControllers: All this will be in nice neat classes
@@ -164,6 +171,8 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                     SizedBox(
                       height: 30.0,
                     ),
+
+                    // Personal Trainer Check button
                     Expanded(
                       flex: 1,
                       child: ButtonTheme(
@@ -212,6 +221,8 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                     SizedBox(
                       width: 10.0,
                     ),
+
+                    // Yoga Instructor checkbox
                     Expanded(
                       flex: 1,
                       child: ButtonTheme(
@@ -222,6 +233,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                           onPressed: () {
                             setState(() {
                               _yogaChecked = !_yogaChecked;
+                              _isEnableYoga = ! _isEnableYoga;
                             });
                           },
                           child: Column(
@@ -234,6 +246,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                                 onChanged: (bool value) {
                                   setState(() {
                                     _yogaChecked = value;
+                                    showYogaRates(value);
                                   });
                                 },
                               ),
@@ -262,6 +275,8 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                     SizedBox(
                       height: 120.0,
                     ),
+
+                    // Wellness check box
                     Expanded(
                       flex: 1,
                       child: ButtonTheme(
@@ -270,6 +285,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                           onPressed: () {
                             setState(() {
                               _wellnessCoachChecked = !_wellnessCoachChecked;
+                              _isEnableWellness = !_isEnableWellness;
                             });
                           },
                           color: _wellnessCoachChecked
@@ -285,6 +301,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                                 onChanged: (bool value) {
                                   setState(() {
                                     _wellnessCoachChecked = value;
+                                    showWellnessRates(value);
                                   });
                                 },
                               ),
@@ -311,6 +328,8 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                     SizedBox(
                       width: 10.0,
                     ),
+
+                    // Strength and conditioning  checkbox
                     Expanded(
                       flex: 1,
                       child: ButtonTheme(
@@ -322,6 +341,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                           onPressed: () {
                             setState(() {
                               _strengthChecked = !_strengthChecked;
+                              _isEnabledStrength =!_isEnabledStrength;
                             });
                           },
                           child: Column(
@@ -334,6 +354,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                                 onChanged: (bool value) {
                                   setState(() {
                                     _strengthChecked = value;
+                                    showStrenghtandConRates(value);
                                   });
                                 },
                               ),
@@ -632,7 +653,11 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                 width: 50.0,
               ),
             ),
+
+            // personality Rates form
+
             Container(
+
               alignment: Alignment.bottomLeft,
               child: Text(
                 "Personal Training Hourly Rates",
@@ -654,6 +679,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                   },
                   decoration: InputDecoration(
                     labelText: "AT FACILITY",
+                    hintText: 'R350',
                     labelStyle: TextStyle(
                       fontFamily: 'SöhneBreitTest',
                       fontSize: 12.0,
@@ -680,6 +706,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                   },
                   decoration: InputDecoration(
                     labelText: "AT HOME",
+                    hintText: 'R350',
                     labelStyle: TextStyle(
                       fontFamily: 'SöhneBreitTest',
                       fontSize: 12.0,
@@ -706,6 +733,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                   },
                   decoration: InputDecoration(
                     labelText: "OUTDOORS",
+                    hintText: 'R350',
                     labelStyle: TextStyle(
                       fontFamily: 'SöhneBreitTest',
                       fontSize: 12.0,
@@ -732,6 +760,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                   },
                   decoration: InputDecoration(
                     labelText: "ONLINE COACHING",
+                    hintText: 'R350',
                     labelStyle: TextStyle(
                       fontFamily: 'SöhneBreitTest',
                       fontSize: 12.0,
@@ -750,6 +779,27 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
             Container(
               padding: EdgeInsets.all(20.0),
             ),
+
+            // Yoga Rates
+            Visibility(
+              visible: _isEnableYoga,
+              child:YogaRates()
+            ),
+
+            // Wellness Coach Rates
+           Visibility(
+             visible: _isEnableWellness,
+             child:WellnessRates()
+
+           ),
+
+            //Strength and Conditioning Rates
+            Visibility(
+              visible: _isEnabledStrength,
+              child:StrengthandConRates()
+            ),
+
+            // Add link
             Container(
               alignment: Alignment.bottomLeft,
               child: Text(
@@ -764,6 +814,8 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
             Container(
               padding: EdgeInsets.all(10.0),
             ),
+
+            // Enter link text box
             Container(
               child: TextFormField(
                   controller: _onlineClassLinkController,
@@ -828,10 +880,491 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
       ),
     );
   }
+  void showYogaRates(bool value) {
+    if(_yogaChecked == false) {
+      setState(() {
+        _isEnableYoga = !_isEnableYoga;
+      });
+    }
+
+  }
+
+  void showWellnessRates(bool value) {
+    if(_wellnessCoachChecked == false) {
+      setState(() {
+        _isEnableWellness = !_isEnableWellness;
+      });
+    }
+
+  }
+
+  void showStrenghtandConRates(bool value) {
+    if(_strengthChecked == false) {
+      setState(() {
+        _isEnabledStrength = !_isEnabledStrength;
+      });
+    }
+
+  }
+
 
   // @override
   // void dispose() {
   //   controller?.dispose();
   //   super.dispose();
   // }
+}
+
+
+class YogaRates extends StatelessWidget {
+
+  final TextEditingController _onlineClassLinkController =
+  new TextEditingController();
+  final TextEditingController _rateFacilityController =
+  new TextEditingController();
+  final TextEditingController _rateHomeController = new TextEditingController();
+  final TextEditingController _rateOutdoorController =
+  new TextEditingController();
+  final TextEditingController _rateOnlineCoachingController =
+  new TextEditingController();
+
+  String atFacility;
+  String atHome;
+  String outdoors;
+  String onlineCoaching;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return
+        Column(
+     children: <Widget>[
+       Container(
+        alignment: Alignment.bottomLeft,
+        child: Text(
+          "Yoga Hourly Rates",
+          style: TextStyle(
+            fontFamily: 'SöhneBreitest',
+            fontSize: 12.0,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    Container(
+    padding: EdgeInsets.all(10.0),
+    ),
+    Container(
+    child: TextFormField(
+    controller: _rateFacilityController,
+    onSaved: (value) {
+    atFacility = value;
+    },
+    decoration: InputDecoration(
+    labelText: "AT FACILITY",
+    hintText: 'R350',
+    labelStyle: TextStyle(
+    fontFamily: 'SöhneBreitTest',
+    fontSize: 12.0,
+    color: Color(0xFFA6A6A6),
+    ),
+    enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    color: Color(0xFFDDDDDD),
+    )),
+    focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    color: Colors.black,
+    )),
+    )),
+    ),
+    Container(
+    padding: EdgeInsets.all(10.0),
+    ),
+    Container(
+    child: TextFormField(
+    controller: _rateHomeController,
+    onSaved: (value) {
+    atHome = value;
+    },
+    decoration: InputDecoration(
+    labelText: "AT HOME",
+    hintText: 'R350',
+    labelStyle: TextStyle(
+    fontFamily: 'SöhneBreitTest',
+    fontSize: 12.0,
+    color: Color(0xFFA6A6A6),
+    ),
+    enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    color: Color(0xFFDDDDDD),
+    )),
+    focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    color: Colors.black,
+    )),
+    )),
+    ),
+    Container(
+    padding: EdgeInsets.all(10.0),
+    ),
+    Container(
+    child: TextFormField(
+    controller: _rateOutdoorController,
+    onSaved: (value) {
+    outdoors = value;
+    },
+    decoration: InputDecoration(
+    labelText: "OUTDOORS",
+    hintText: 'R350',
+    labelStyle: TextStyle(
+    fontFamily: 'SöhneBreitTest',
+    fontSize: 12.0,
+    color: Color(0xFFA6A6A6),
+    ),
+    enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    color: Color(0xFFDDDDDD),
+    )),
+    focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    color: Colors.black,
+    )),
+    )),
+    ),
+    Container(
+    padding: EdgeInsets.all(10.0),
+    ),
+    Container(
+    child: TextFormField(
+    controller: _rateOnlineCoachingController,
+    onSaved: (value) {
+    onlineCoaching = value;
+    },
+    decoration: InputDecoration(
+    labelText: "ONLINE COACHING",
+    hintText: 'R350',
+    labelStyle: TextStyle(
+    fontFamily: 'SöhneBreitTest',
+    fontSize: 12.0,
+    color: Color(0xFFA6A6A6),
+    ),
+    enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    color: Color(0xFFDDDDDD),
+    )),
+    focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+    color: Colors.black,
+    )),
+    )),
+    ),
+    Container(
+    padding: EdgeInsets.all(20.0),
+    ),
+    ]
+        );
+  }
+
+}
+// ignore: must_be_immutable
+class WellnessRates extends StatelessWidget {
+
+
+  final TextEditingController _onlineClassLinkController =
+  new TextEditingController();
+  final TextEditingController _rateFacilityController =
+  new TextEditingController();
+  final TextEditingController _rateHomeController = new TextEditingController();
+  final TextEditingController _rateOutdoorController =
+  new TextEditingController();
+  final TextEditingController _rateOnlineCoachingController =
+  new TextEditingController();
+
+  String atFacility;
+  String atHome;
+  String outdoors;
+  String onlineCoaching;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return
+      Column(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Wellness Hourly Rates",
+                style: TextStyle(
+                  fontFamily: 'SöhneBreitest',
+                  fontSize: 12.0,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _rateFacilityController,
+                  onSaved: (value) {
+                    atFacility = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT FACILITY",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _rateHomeController,
+                  onSaved: (value) {
+                    atHome = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT HOME",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _rateOutdoorController,
+                  onSaved: (value) {
+                    outdoors = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "OUTDOORS",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _rateOnlineCoachingController,
+                  onSaved: (value) {
+                    onlineCoaching = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "ONLINE COACHING",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(20.0),
+            ),
+          ]
+      );
+  }
+
+}
+class StrengthandConRates extends StatelessWidget {
+
+  final TextEditingController _onlineClassLinkController =
+  new TextEditingController();
+  final TextEditingController _rateFacilityController =
+  new TextEditingController();
+  final TextEditingController _rateHomeController = new TextEditingController();
+  final TextEditingController _rateOutdoorController =
+  new TextEditingController();
+  final TextEditingController _rateOnlineCoachingController =
+  new TextEditingController();
+
+  String atFacility;
+  String atHome;
+  String outdoors;
+  String onlineCoaching;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return
+      Column(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Strength and Conditioning Hourly Rates",
+                style: TextStyle(
+                  fontFamily: 'SöhneBreitest',
+                  fontSize: 12.0,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _rateFacilityController,
+                  onSaved: (value) {
+                    atFacility = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT FACILITY",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _rateHomeController,
+                  onSaved: (value) {
+                    atHome = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT HOME",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _rateOutdoorController,
+                  onSaved: (value) {
+                    outdoors = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "OUTDOORS",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _rateOnlineCoachingController,
+                  onSaved: (value) {
+                    onlineCoaching = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "ONLINE COACHING",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(20.0),
+            ),
+          ]
+      );
+  }
+
 }
