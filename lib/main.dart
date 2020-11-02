@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forteapp/payment_location.dart';
 import 'login_page.dart';
 import 'welcome_page.dart';
 import 'registration_page.dart';
@@ -7,6 +8,7 @@ import 'user_profile_init.dart';
 import 'splashscreen_page.dart';
 import 'onboarding_page.dart';
 import 't_c_page.dart';
+import 'payment_location.dart';
 import 'package:forteapp/splashscreen1_page.dart';
 
 import 'package:camera/camera.dart';
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
           Splashscreen1Page.id: (context) => Splashscreen1Page(),
           OnboardingPage.id: (context) => OnboardingPage(),
           TCPage.id: (context) => TCPage(),
+          PaymentLocationPage.id: (context) => PaymentLocationPage()
         });
   }
 }

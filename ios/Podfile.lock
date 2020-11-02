@@ -426,7 +426,7 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   auro_avatar: d8468deafcd8f607dab330f77e4fb383f73abf75
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
-  camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
+  camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
   cloud_firestore: 2a4f8f802fb0b701cf809b283b6bec7477ebaa6f
   Firebase: ed042590caa0029392257529a8003c25ee82bc18
   firebase_auth: af8784c4d8d87c36f730a305f97bfbcb24db024b
