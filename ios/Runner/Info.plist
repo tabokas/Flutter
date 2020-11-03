@@ -42,8 +42,8 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
-        <string>Upload profile images from library</string>
-        <key>NSCameraUsageDescription</key>
-        <string>Upload profile images from camera</string>
+    <string>Upload profile images from library</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Upload profile images from camera</string>
 </dict>
 </plist>
