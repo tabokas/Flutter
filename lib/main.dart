@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forteapp/athleteprofile_page.dart';
 import 'package:forteapp/payment_location.dart';
 import 'login_page.dart';
 import 'welcome_page.dart';
@@ -10,9 +11,11 @@ import 'onboarding_page.dart';
 import 't_c_page.dart';
 import 'payment_location.dart';
 import 'package:forteapp/splashscreen1_page.dart';
+import 'package:forteapp/athleteprofile_page.dart';
+import 'package:forteapp/instructorprofile_page.dart';
 
 import 'package:camera/camera.dart';
-import 'package:path/path.dart' show join;
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(unselectedWidgetColor: Color(0xFFDDDDDD)),
         //title: 'Welcome to Forte',
         // home: MainPage());
+        //initialRoute: AthleteProfilePage.id,
         initialRoute: SplashscreenPage.id,
         routes: {
           //TODO: Clean up routes
@@ -41,7 +45,9 @@ class MyApp extends StatelessWidget {
           Splashscreen1Page.id: (context) => Splashscreen1Page(),
           OnboardingPage.id: (context) => OnboardingPage(),
           TCPage.id: (context) => TCPage(),
-          PaymentLocationPage.id: (context) => PaymentLocationPage()
+          PaymentLocationPage.id: (context) => PaymentLocationPage(),
+          AthleteProfilePage.id: (context) => AthleteProfilePage(),
+          InstructorProfilePage.id: (context) => InstructorProfilePage()
         });
   }
 }
