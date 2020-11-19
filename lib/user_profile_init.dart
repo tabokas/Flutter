@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:forteapp/coach_profiles_page.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:forteapp/payment_location.dart';
 import 'package:forteapp/registration_page.dart';
+import 'package:forteapp/skills_rates_page.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 //import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
@@ -23,25 +25,29 @@ TypeOfID selectedType;
 
 File _pickedImage;
 Firestore _firestore = Firestore.instance;
+String fileName = DateTime.now().microsecondsSinceEpoch.toString();
 String _retrievedImageUrl;
 
 Future<CloudStorageResult> uploadImage({
   @required File pictureImage,
   //@required File passportImage,
   @required String fileName,
-  //@required String fileName2,
-}) async {
+})
+
+
+async {
   //var imageFileName = title + DateTime.now().millisecondsSinceEpoch.toString();
+
 
 
   //Get the reference to the file we want to create
   final StorageReference firebaseStorageRef = FirebaseStorage.instance
       .ref()
-      .child(fileName)
+      .child("fileName")
 
   ;
 
-  StorageUploadTask uploadTask = firebaseStorageRef.putFile(_pickedImage);
+  StorageUploadTask uploadTask = firebaseStorageRef.child("fileName").putFile(_pickedImage);
 
   StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
 
@@ -165,7 +171,7 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
   DateTime _date = DateTime.now();
 
   // File imageFile;
-  final _picker = ImagePicker();
+  //final _picker = ImagePicker();
 
   //final picker = ImagePicker();
 
@@ -186,8 +192,6 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
     }
   }
 
-
-
   Future<Null> selectedDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
@@ -204,15 +208,11 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
     }
   }
 
-  File _pickedImage;
+  //File _pickedImage;
   List<File> _pickedImageList = List();
   List<String> _pickedImageUrls = List();
   Firestore _firestore = Firestore.instance;
-  //int i = 0;
-
-
-
-
+  //String fileName = DateTime.now().microsecondsSinceEpoch.toString();
 
 
   _openGallery() async {
@@ -229,13 +229,9 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
   _openCamera() async {
     final picture =
     await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
-    //final picture2 =
-    //await _picker2.getImage(source: ImageSource.camera, imageQuality: 50);
     final File pictureImage = File(picture.path);
-    //final File passportImage = File(picture.path);
-    // var picture = await ImagePicker.pickImage(source: ImageSource.camera);
+    //var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     this.setState(() {
-      // imageFile = picture;
       _pickedImage = pictureImage;
     });
   }
@@ -265,13 +261,19 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
                       _openCamera();
                     },
                   ),
-
                 ],
               ),
             ),
           );
         });
   }
+  final _picker = ImagePicker();
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  File _pickedImage;
+  File pictureImage;
+  PickedFile picture;
+  String imageUrl;
+
 
   @override
   Widget build(BuildContext context) {
@@ -311,7 +313,7 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
         actions: <Widget>[
           // Displaying the user name Intials
           InitialNameAvatar(
-            "${user?.displayName}".toUpperCase(),
+            "s".toUpperCase(),
             circleAvatar: true,
             backgroundColor: Colors.black,
             foregroundColor: Colors.white,
@@ -374,13 +376,13 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
                               ),
                             ),
                           ),
-                          Text(
-                            "${widget.usertypevalue}",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                            ),
-                          ),
+                          //Text(
+                            //"${widget.usertypevalue}",
+                            //style: TextStyle(
+                              //color: Colors.black,
+                              //fontSize: 12,
+                            //),
+                         // ),
                         ],
                       ),
                     ),
@@ -393,7 +395,7 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
                     Container(
                       child: TextFormField(
                           controller: _fullNameController,
-                          //validator: validateEmail,
+                          validator: validatefullName,
                           onSaved: (value) {
                             fullName = value;
                           },
@@ -760,43 +762,50 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
                             ),
                             onPressed: () async {
                               if (_pickedImage != null) {
+                              var filePath = 'ProfileImages/${DateTime.now()}.png';
                               StorageReference ref = FirebaseStorage.instance.ref();
-                              StorageTaskSnapshot addImg = await ref.child("fileName").putFile(_pickedImage).onComplete;
+                              StorageTaskSnapshot addImg = await ref.child(filePath).putFile(_pickedImage).onComplete;
                               if (addImg.error == null) {
-                              print("added profile photo to Firebase Storage");
-                              uploadMultipleImages();
-                              setState(() {
-                                _formKey.currentState.save();
-                              }  //   showSpinner = true;
-                              );
-                              try {
-                                print(loggedinuserid);
-                                print(loggedinuseremail);
-                                await Firestore.instance
-                                    .collection('users')
-                                    .document(loggedinuserid)
-                                    .setData({
-                                  'fullname': fullName,
-                                  'phonenumber': phoneNumber,
-                                  'dateofbirth': dateOfBirth,
-                                  'typeofid': typeOfIDString,
-                                  'idnumber': idNumber,
-                                  'usertype': "$usertypevalue",
-                                });
-                                //print(password);
-                                //  final newUser =
-                                //     await _auth.createUserWithEmailAndPassword(
-                                //        email: email, password: password);
-                                //if (newUser != null) {
-                                Navigator.pushNamed(context, CoachProfilesPage.id);
-                                //}
+                              print("Error: "+addImg.error.toString());
                                 setState(() {
-                                  showSpinner = false;
-                                });
-                              } catch (e) {
-                                print(e);
-                              }
-                            }}}),
+                                  _formKey.currentState.save();
+                                }  //   showSpinner = true;
+                                );
+                                try {
+                                  imageUrl = await addImg.ref.getDownloadURL();
+                                  print(loggedinuserid);
+                                  print(loggedinuseremail);
+                                  await Firestore.instance
+                                      .collection('users')
+                                      .document(loggedinuserid)
+                                      .setData({
+                                    'fullname': fullName,
+                                    'phonenumber': phoneNumber,
+                                    'dateofbirth': dateOfBirth,
+                                    'typeofid': typeOfIDString,
+                                    'idnumber': idNumber,
+                                    'usertype': "$usertypevalue",
+                                    'profilepicture': imageUrl,
+                                  });
+                                  //print(password);
+                                  //  final newUser =
+                                  //     await _auth.createUserWithEmailAndPassword(
+                                  //        email: email, password: password);
+                                  //if (newUser != null) {
+                                  Navigator.pushNamed(context, PaymentLocationPage.id);
+                                  //}
+                                  setState(() {
+                                    showSpinner = false;
+                                  });
+
+                                } catch (e) {
+                                  print("Error: "+e.toString());
+                                }
+                            }}
+                              if (_pickedImage == null)
+                            {_displayDialog(context);}
+
+                            }),
 
                       ),
                     ),
@@ -821,9 +830,37 @@ class _UserProfileInitPageState extends State<UserProfileInitPage> {
     });
   }
 
+  String validatefullName(String value) {
+    String pattern =
+        r'^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'+'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)';
+    RegExp regExp = new RegExp(pattern);
+    if (value.isEmpty) {
+      return 'Full Name is required';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Invalid Name';
+    } else {
+      return null;
+    }
+  }
+  TextEditingController _textFieldController = TextEditingController();
+  void _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Please select photo'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Please select profile photo"),
+            ),
+          );
+        });
+  }
+
   @override
   void dispose() {
     controller?.dispose();
     super.dispose();
   }
 }
+

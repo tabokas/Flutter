@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:forteapp/coach_profiles_page.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:forteapp/registration_page.dart';
+import 'package:forteapp/skills_rates_page.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 //import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
@@ -716,6 +717,7 @@ class _PaymentLocationPageState extends State<PaymentLocationPage> {
                             'city': _selectedCity,
                             'suburb': suburb
                           });
+                          Navigator.pushNamed(context, SkillsRatesPage.id);
                         }),
                   ),
                 ),

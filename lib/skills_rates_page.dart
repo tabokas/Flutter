@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:forteapp/coach_profiles_page.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:forteapp/payment_location.dart';
 import 'package:forteapp/registration_page.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -35,15 +36,19 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
   final _auth = FirebaseAuth.instance;
 
   FirebaseUser loggedInUser;
-  bool _wellnessChecked = false;
-  bool _weightLossChecked = false;
-  bool _bodyBuildingChecked = false;
-  bool _enduranceChecked = false;
-  bool _toningChecked = false;
+  bool _sstChecked = false;
+  bool _weightmanagementChecked = false;
+  bool _toningshapingChecked = false;
+  bool _bodybuildingChecked = false;
+  bool _ppnChecked = false;
   bool _personalChecked = false;
   bool _yogaChecked = false;
   bool _wellnessCoachChecked = false;
   bool _strengthChecked = false;
+  bool _boxingChecked = false;
+  bool _speedagilityChecked = false;
+  bool _hiitChecked = false;
+  bool _pilatesChecked = false;
 
   bool _isEnablePersonal = false;
   bool _isEnableYoga = false;
@@ -64,6 +69,27 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
       new TextEditingController();
   final TextEditingController _rateOnlineCoachingController =
       new TextEditingController();
+  final TextEditingController _YogarateFacilityController =
+  new TextEditingController();
+  final TextEditingController _YogarateHomeController = new TextEditingController();
+  final TextEditingController _YogarateOutdoorController =
+  new TextEditingController();
+  final TextEditingController _YogarateOnlineCoachingController =
+  new TextEditingController();
+  final TextEditingController _WellnessrateFacilityController =
+  new TextEditingController();
+  final TextEditingController _WellnessrateHomeController = new TextEditingController();
+  final TextEditingController _WellnessrateOutdoorController =
+  new TextEditingController();
+  final TextEditingController _WellnessrateOnlineCoachingController =
+  new TextEditingController();
+  final TextEditingController _SCrateFacilityController =
+  new TextEditingController();
+  final TextEditingController _SCrateHomeController = new TextEditingController();
+  final TextEditingController _SCrateOutdoorController =
+  new TextEditingController();
+  final TextEditingController _SCrateOnlineCoachingController =
+  new TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -79,6 +105,19 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
   String atHome;
   String outdoors;
   String onlineCoaching;
+  String YogaatFacility;
+  String YogaatHome;
+  String Yogaoutdoors;
+  String YogaonlineCoaching;
+  String WellnessatFacility;
+  String WellnessatHome;
+  String Wellnessoutdoors;
+  String WellnessonlineCoaching;
+  String SCatFacility;
+  String SCatHome;
+  String SCoutdoors;
+  String SConlineCoaching;
+  String link;
 
   String loggedinuseremail;
   String loggedinuserid;
@@ -131,7 +170,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
         actions: <Widget>[
           // Displaying the user name Intials
           InitialNameAvatar(
-            "${user?.displayName}".toUpperCase(),
+            "s".toUpperCase(),
             circleAvatar: true,
             backgroundColor: Colors.black,
             foregroundColor: Colors.white,
@@ -400,7 +439,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                       child: CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text(
-                          "weight loss",
+                          "Weight Management",
                           style: TextStyle(
                             fontFamily: 'SöhneBreitTest',
                             fontSize: 12.0,
@@ -410,10 +449,10 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                         contentPadding: EdgeInsets.all(0),
                         activeColor: Color(0xFFDDDDDD),
                         checkColor: Colors.black,
-                        value: _weightLossChecked,
+                        value: _weightmanagementChecked,
                         onChanged: (bool value) {
                           setState(() {
-                            _weightLossChecked = value;
+                            _weightmanagementChecked = value;
                           });
                         },
                       ),
@@ -423,7 +462,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                       child: CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text(
-                          "body building",
+                          "Toning and Shaping",
                           style: TextStyle(
                             fontFamily: 'SöhneBreitTest',
                             fontSize: 12.0,
@@ -433,60 +472,10 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                         contentPadding: EdgeInsets.all(0),
                         activeColor: Color(0xFFDDDDDD),
                         checkColor: Colors.black,
-                        value: _bodyBuildingChecked,
+                        value: _toningshapingChecked,
                         onChanged: (bool value) {
                           setState(() {
-                            _bodyBuildingChecked = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: CheckboxListTile(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        title: Text(
-                          "body building",
-                          style: TextStyle(
-                            fontFamily: 'SöhneBreitTest',
-                            fontSize: 12.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.all(0),
-                        activeColor: Color(0xFFDDDDDD),
-                        checkColor: Colors.black,
-                        value: _bodyBuildingChecked,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _bodyBuildingChecked = value;
-                          });
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: CheckboxListTile(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        title: Text(
-                          "endurance",
-                          style: TextStyle(
-                            fontFamily: 'SöhneBreitTest',
-                            fontSize: 12.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.all(0),
-                        activeColor: Color(0xFFDDDDDD),
-                        checkColor: Colors.black,
-                        value: _enduranceChecked,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _enduranceChecked = value;
+                            _toningshapingChecked = value;
                           });
                         },
                       ),
@@ -500,7 +489,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                       child: CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text(
-                          "wellness",
+                          "Boxing",
                           style: TextStyle(
                             fontFamily: 'SöhneBreitTest',
                             fontSize: 12.0,
@@ -510,10 +499,10 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                         contentPadding: EdgeInsets.all(0),
                         activeColor: Color(0xFFDDDDDD),
                         checkColor: Colors.black,
-                        value: _wellnessChecked,
+                        value: _boxingChecked,
                         onChanged: (bool value) {
                           setState(() {
-                            _wellnessChecked = value;
+                            _boxingChecked = value;
                           });
                         },
                       ),
@@ -523,7 +512,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                       child: CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text(
-                          "toning",
+                          "Body Building",
                           style: TextStyle(
                             fontFamily: 'SöhneBreitTest',
                             fontSize: 12.0,
@@ -533,60 +522,10 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                         contentPadding: EdgeInsets.all(0),
                         activeColor: Color(0xFFDDDDDD),
                         checkColor: Colors.black,
-                        value: _toningChecked,
+                        value: _bodybuildingChecked,
                         onChanged: (bool value) {
                           setState(() {
-                            _toningChecked = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: CheckboxListTile(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        title: Text(
-                          "toning",
-                          style: TextStyle(
-                            fontFamily: 'SöhneBreitTest',
-                            fontSize: 12.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.all(0),
-                        activeColor: Color(0xFFDDDDDD),
-                        checkColor: Colors.black,
-                        value: _toningChecked,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _toningChecked = value;
-                          });
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: CheckboxListTile(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        title: Text(
-                          "weight loss",
-                          style: TextStyle(
-                            fontFamily: 'SöhneBreitTest',
-                            fontSize: 12.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.all(0),
-                        activeColor: Color(0xFFDDDDDD),
-                        checkColor: Colors.black,
-                        value: _weightLossChecked,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _weightLossChecked = value;
+                            _bodybuildingChecked = value;
                           });
                         },
                       ),
@@ -600,7 +539,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                       child: CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text(
-                          "endurance",
+                          "Sports Specific Training",
                           style: TextStyle(
                             fontFamily: 'SöhneBreitTest',
                             fontSize: 12.0,
@@ -610,10 +549,10 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                         contentPadding: EdgeInsets.all(0),
                         activeColor: Color(0xFFDDDDDD),
                         checkColor: Colors.black,
-                        value: _enduranceChecked,
+                        value: _sstChecked,
                         onChanged: (bool value) {
                           setState(() {
-                            _enduranceChecked = value;
+                            _sstChecked = value;
                           });
                         },
                       ),
@@ -623,7 +562,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                       child: CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text(
-                          "wellness",
+                          "Pre and Postnatal",
                           style: TextStyle(
                             fontFamily: 'SöhneBreitTest',
                             fontSize: 12.0,
@@ -633,10 +572,110 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                         contentPadding: EdgeInsets.all(0),
                         activeColor: Color(0xFFDDDDDD),
                         checkColor: Colors.black,
-                        value: _wellnessChecked,
+                        value: _ppnChecked,
                         onChanged: (bool value) {
                           setState(() {
-                            _wellnessChecked = value;
+                            _ppnChecked = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: CheckboxListTile(
+                        controlAffinity: ListTileControlAffinity.leading,
+                        title: Text(
+                          "Speed and Agility",
+                          style: TextStyle(
+                            fontFamily: 'SöhneBreitTest',
+                            fontSize: 12.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.all(0),
+                        activeColor: Color(0xFFDDDDDD),
+                        checkColor: Colors.black,
+                        value: _speedagilityChecked,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _speedagilityChecked = value;
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: CheckboxListTile(
+                        controlAffinity: ListTileControlAffinity.leading,
+                        title: Text(
+                          "HIIT",
+                          style: TextStyle(
+                            fontFamily: 'SöhneBreitTest',
+                            fontSize: 12.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.all(0),
+                        activeColor: Color(0xFFDDDDDD),
+                        checkColor: Colors.black,
+                        value: _hiitChecked,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _hiitChecked = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: CheckboxListTile(
+                        controlAffinity: ListTileControlAffinity.leading,
+                        title: Text(
+                          "Yoga",
+                          style: TextStyle(
+                            fontFamily: 'SöhneBreitTest',
+                            fontSize: 12.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.all(0),
+                        activeColor: Color(0xFFDDDDDD),
+                        checkColor: Colors.black,
+                        value: _yogaChecked,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _yogaChecked = value;
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: CheckboxListTile(
+                        controlAffinity: ListTileControlAffinity.leading,
+                        title: Text(
+                          "Pilates",
+                          style: TextStyle(
+                            fontFamily: 'SöhneBreitTest',
+                            fontSize: 12.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.all(0),
+                        activeColor: Color(0xFFDDDDDD),
+                        checkColor: Colors.black,
+                        value: _pilatesChecked,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _pilatesChecked = value;
                           });
                         },
                       ),
@@ -780,6 +819,378 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
               padding: EdgeInsets.all(20.0),
             ),
 
+            Container(
+
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Yoga Hourly Rates",
+                style: TextStyle(
+                  fontFamily: 'SöhneBreitTest',
+                  fontSize: 12.0,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _YogarateFacilityController,
+                  onSaved: (value) {
+                    YogaatFacility = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT FACILITY",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _YogarateHomeController,
+                  onSaved: (value) {
+                    YogaatHome = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT HOME",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _YogarateOutdoorController,
+                  onSaved: (value) {
+                    Yogaoutdoors = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "OUTDOORS",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _YogarateOnlineCoachingController,
+                  onSaved: (value) {
+                    YogaonlineCoaching = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "ONLINE COACHING",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(20.0),
+            ),
+
+            Container(
+
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Wellness Hourly Rates",
+                style: TextStyle(
+                  fontFamily: 'SöhneBreitTest',
+                  fontSize: 12.0,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _WellnessrateFacilityController,
+                  onSaved: (value) {
+                    WellnessatFacility = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT FACILITY",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _WellnessrateHomeController,
+                  onSaved: (value) {
+                    WellnessatHome = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT HOME",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _WellnessrateOutdoorController,
+                  onSaved: (value) {
+                    Wellnessoutdoors = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "OUTDOORS",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _WellnessrateOnlineCoachingController,
+                  onSaved: (value) {
+                    WellnessonlineCoaching = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "ONLINE COACHING",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(20.0),
+            ),
+
+            Container(
+
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Strength and Conditioning Hourly Rates",
+                style: TextStyle(
+                  fontFamily: 'SöhneBreitTest',
+                  fontSize: 12.0,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _SCrateFacilityController,
+                  onSaved: (value) {
+                    SCatFacility = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT FACILITY",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _SCrateHomeController,
+                  onSaved: (value) {
+                    SCatHome = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "AT HOME",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _SCrateOutdoorController,
+                  onSaved: (value) {
+                    SCoutdoors = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "OUTDOORS",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Container(
+              child: TextFormField(
+                  controller: _SCrateOnlineCoachingController,
+                  onSaved: (value) {
+                    SConlineCoaching = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "ONLINE COACHING",
+                    hintText: 'R350',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SöhneBreitTest',
+                      fontSize: 12.0,
+                      color: Color(0xFFA6A6A6),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFDDDDDD),
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.all(20.0),
+            ),
+
             // Yoga Rates
             Visibility(
               visible: _isEnableYoga,
@@ -820,7 +1231,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
               child: TextFormField(
                   controller: _onlineClassLinkController,
                   onSaved: (value) {
-                    atFacility = value;
+                    link = value;
                   },
                   decoration: InputDecoration(
                     labelText: "Paste link here",
@@ -865,9 +1276,200 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     onPressed: () async {
-                      //Missing validation and posting to Firebase
+                      if (_isEnablePersonal = true) {
+                      setState(() {
+                        _formKey.currentState.save();
+                        _sstChecked;
+                        _weightmanagementChecked;
+                        _toningshapingChecked;
+                        _bodybuildingChecked;
+                        _ppnChecked;
+                        _personalChecked;
+                        _yogaChecked;
+                        _wellnessCoachChecked;
+                        _strengthChecked;
+                        _boxingChecked;
+                        _speedagilityChecked;
+                        _hiitChecked;
+                        _pilatesChecked;
+                      });
+                      await Firestore.instance
+                          .collection('users')
+                          .document(loggedinuserid)
+                          .updateData({
+                        'pt facility': atFacility,
+                        'pt home': atHome,
+                        'pt outdoors': outdoors,
+                        'pt online': onlineCoaching,
+                        'sst enabled': _sstChecked,
+                        'weightmanagement enabled': _weightmanagementChecked,
+                        'toning enabled': _toningshapingChecked,
+                        'bodybuilding enabled': _bodybuildingChecked,
+                        'ppn enabled': _ppnChecked,
+                        'personal enabled': _personalChecked,
+                        'yoga enabled': _yogaChecked,
+                        'wellness enabled': _wellnessCoachChecked,
+                        'strength enabled': _strengthChecked,
+                        'boxing enabled': _boxingChecked,
+                        'speedagility enabled': _speedagilityChecked,
+                        'hiit enabled': _hiitChecked,
+                        'pilates enabled': _pilatesChecked
+                          });
                       Navigator.pushNamed(context, CoachProfilesPage.id);
-                    }),
+                    }
+                      if (_isEnableYoga = true) {
+                        setState(() {
+                          _formKey.currentState.save();
+                          _sstChecked;
+                          _weightmanagementChecked;
+                          _toningshapingChecked;
+                          _bodybuildingChecked;
+                          _ppnChecked;
+                          _personalChecked;
+                          _yogaChecked;
+                          _wellnessCoachChecked;
+                          _strengthChecked;
+                          _boxingChecked;
+                          _speedagilityChecked;
+                          _hiitChecked;
+                          _pilatesChecked;
+                        });
+                        await Firestore.instance
+                            .collection('users')
+                            .document(loggedinuserid)
+                            .updateData({
+                          'yoga facility': YogaatFacility,
+                          'yoga home': YogaatHome,
+                          'yoga outdoors': Yogaoutdoors,
+                          'yoga online': YogaonlineCoaching,
+                          'sst enabled': _sstChecked,
+                          'weightmanagement enabled': _weightmanagementChecked,
+                          'toning enabled': _toningshapingChecked,
+                          'bodybuilding enabled': _bodybuildingChecked,
+                          'ppn enabled': _ppnChecked,
+                          'personal enabled': _personalChecked,
+                          'yoga enabled': _yogaChecked,
+                          'wellness enabled': _wellnessCoachChecked,
+                          'strength enabled': _strengthChecked,
+                          'boxing enabled': _boxingChecked,
+                          'speedagility enabled': _speedagilityChecked,
+                          'hiit enabled': _hiitChecked,
+                          'pilates enabled': _pilatesChecked
+                        });
+                        Navigator.pushNamed(context, CoachProfilesPage.id);
+                      }
+                      if (_isEnableWellness = true) {
+                        setState(() {
+                          _formKey.currentState.save();
+                          _sstChecked;
+                          _weightmanagementChecked;
+                          _toningshapingChecked;
+                          _bodybuildingChecked;
+                          _ppnChecked;
+                          _personalChecked;
+                          _yogaChecked;
+                          _wellnessCoachChecked;
+                          _strengthChecked;
+                          _boxingChecked;
+                          _speedagilityChecked;
+                          _hiitChecked;
+                          _pilatesChecked;
+                        });
+                        await Firestore.instance
+                            .collection('users')
+                            .document(loggedinuserid)
+                            .updateData({
+                          'wellness facility': WellnessatFacility,
+                          'wellness home': WellnessatHome,
+                          'wellness outdoors': Wellnessoutdoors,
+                          'wellness online': WellnessonlineCoaching,
+                          'sst enabled': _sstChecked,
+                          'weightmanagement enabled': _weightmanagementChecked,
+                          'toning enabled': _toningshapingChecked,
+                          'bodybuilding enabled': _bodybuildingChecked,
+                          'ppn enabled': _ppnChecked,
+                          'personal enabled': _personalChecked,
+                          'yoga enabled': _yogaChecked,
+                          'wellness enabled': _wellnessCoachChecked,
+                          'strength enabled': _strengthChecked,
+                          'boxing enabled': _boxingChecked,
+                          'speedagility enabled': _speedagilityChecked,
+                          'hiit enabled': _hiitChecked,
+                          'pilates enabled': _pilatesChecked
+                        });
+                        Navigator.pushNamed(context, CoachProfilesPage.id);
+                      }
+                      if (_isEnabledStrength = true) {
+                        setState(() {
+                          _formKey.currentState.save();
+                          _sstChecked;
+                          _weightmanagementChecked;
+                          _toningshapingChecked;
+                          _bodybuildingChecked;
+                          _ppnChecked;
+                          _personalChecked;
+                          _yogaChecked;
+                          _wellnessCoachChecked;
+                          _strengthChecked;
+                          _boxingChecked;
+                          _speedagilityChecked;
+                          _hiitChecked;
+                          _pilatesChecked;
+                        });
+                        await Firestore.instance
+                            .collection('users')
+                            .document(loggedinuserid)
+                            .updateData({
+                          'sc facility': SCatFacility,
+                          'sc home': SCatHome,
+                          'sc outdoors': SCoutdoors,
+                          'sc online': SConlineCoaching,
+                          'sst enabled': _sstChecked,
+                          'weightmanagement enabled': _weightmanagementChecked,
+                          'toning enabled': _toningshapingChecked,
+                          'bodybuilding enabled': _bodybuildingChecked,
+                          'ppn enabled': _ppnChecked,
+                          'personal enabled': _personalChecked,
+                          'yoga enabled': _yogaChecked,
+                          'wellness enabled': _wellnessCoachChecked,
+                          'strength enabled': _strengthChecked,
+                          'boxing enabled': _boxingChecked,
+                          'speedagility enabled': _speedagilityChecked,
+                          'hiit enabled': _hiitChecked,
+                          'pilates enabled': _pilatesChecked
+                        });
+                        Navigator.pushNamed(context, CoachProfilesPage.id);
+                      }
+                      if (link != null) {
+                        setState(() {
+                          _formKey.currentState.save();
+                        });
+                        await Firestore.instance
+                            .collection('users')
+                            .document(loggedinuserid)
+                            .updateData({
+                          'link': link
+                        });
+                        Navigator.pushNamed(context, CoachProfilesPage.id);
+                      }
+                      if (atFacility == null &&
+                      atHome == null &&
+                      outdoors == null &&
+                      onlineCoaching == null &&
+                      YogaatFacility == null &&
+                      YogaatHome == null &&
+                      Yogaoutdoors == null &&
+                      YogaonlineCoaching == null &&
+                      WellnessatFacility == null &&
+                      WellnessatHome == null &&
+                      Wellnessoutdoors == null &&
+                      WellnessonlineCoaching == null &&
+                      SCatFacility == null &&
+                      SCatHome == null &&
+                      SCoutdoors == null &&
+                      SConlineCoaching == null) {
+                        {_displayDialog(context);};
+                      }}),
               ),
             ),
             Container(
@@ -879,6 +1481,8 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
         ),
       ),
     );
+
+
   }
   void showYogaRates(bool value) {
     if(_yogaChecked == false) {
@@ -907,6 +1511,21 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
 
   }
 
+  TextEditingController _textFieldController = TextEditingController();
+  void _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Please enter at least one rate'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Please enter at least one rate"),
+            ),
+          );
+        });
+  }
+
 
   // @override
   // void dispose() {
@@ -928,10 +1547,10 @@ class YogaRates extends StatelessWidget {
   final TextEditingController _rateOnlineCoachingController =
   new TextEditingController();
 
-  String atFacility;
-  String atHome;
-  String outdoors;
-  String onlineCoaching;
+  String YogaatFacility;
+  String YogaatHome;
+  String Yogaoutdoors;
+  String YogaonlineCoaching;
 
   @override
   Widget build(BuildContext context) {
@@ -957,7 +1576,7 @@ class YogaRates extends StatelessWidget {
     child: TextFormField(
     controller: _rateFacilityController,
     onSaved: (value) {
-    atFacility = value;
+    YogaatFacility = value;
     },
     decoration: InputDecoration(
     labelText: "AT FACILITY",
@@ -984,7 +1603,7 @@ class YogaRates extends StatelessWidget {
     child: TextFormField(
     controller: _rateHomeController,
     onSaved: (value) {
-    atHome = value;
+    YogaatHome = value;
     },
     decoration: InputDecoration(
     labelText: "AT HOME",
@@ -1011,7 +1630,7 @@ class YogaRates extends StatelessWidget {
     child: TextFormField(
     controller: _rateOutdoorController,
     onSaved: (value) {
-    outdoors = value;
+    Yogaoutdoors = value;
     },
     decoration: InputDecoration(
     labelText: "OUTDOORS",
@@ -1038,7 +1657,7 @@ class YogaRates extends StatelessWidget {
     child: TextFormField(
     controller: _rateOnlineCoachingController,
     onSaved: (value) {
-    onlineCoaching = value;
+    YogaonlineCoaching = value;
     },
     decoration: InputDecoration(
     labelText: "ONLINE COACHING",
