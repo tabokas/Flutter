@@ -1297,6 +1297,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                           .collection('users')
                           .document(loggedinuserid)
                           .updateData({
+                        'pt enabled': _isEnablePersonal,
                         'pt facility': atFacility,
                         'pt home': atHome,
                         'pt outdoors': outdoors,
@@ -1338,6 +1339,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                             .collection('users')
                             .document(loggedinuserid)
                             .updateData({
+                          'yoga enabled': _isEnableYoga,
                           'yoga facility': YogaatFacility,
                           'yoga home': YogaatHome,
                           'yoga outdoors': Yogaoutdoors,
@@ -1379,6 +1381,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                             .collection('users')
                             .document(loggedinuserid)
                             .updateData({
+                          'welness enabled': _isEnableWellness,
                           'wellness facility': WellnessatFacility,
                           'wellness home': WellnessatHome,
                           'wellness outdoors': Wellnessoutdoors,
@@ -1420,6 +1423,7 @@ class _SkillsRatesPageState extends State<SkillsRatesPage> {
                             .collection('users')
                             .document(loggedinuserid)
                             .updateData({
+                          'sc enabled': _isEnabledStrength,
                           'sc facility': SCatFacility,
                           'sc home': SCatHome,
                           'sc outdoors': SCoutdoors,
