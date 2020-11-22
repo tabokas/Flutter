@@ -9,7 +9,9 @@ import 'package:forteapp/user_profile_init.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:forteapp/services/cloud_storage_service.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 class CoachProfilesPage extends StatefulWidget {
@@ -20,42 +22,10 @@ class CoachProfilesPage extends StatefulWidget {
 }
 
 class _CoachProfilesPageState extends State<CoachProfilesPage> {
-  final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
-  String _retrievedImageUrl;
-  Firestore _firestore = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
 
-
-
-  Future retrieveImage() async {
-    DocumentSnapshot documentSnapshot;
-    try {
-      documentSnapshot = await _firestore.collection("users").document("loggedinuserid").get();
-      setState(() {
-        _retrievedImageUrl = documentSnapshot.data["profilePicture"];
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    getCurrentUser();
-  }
-
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser();
-      if (user != null) {
-        loggedInUser = user;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -74,3 +44,5 @@ class _CoachProfilesPageState extends State<CoachProfilesPage> {
     );
   }
 }
+
+

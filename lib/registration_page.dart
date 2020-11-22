@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:forteapp/coach_profiles_page.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:forteapp/user_profile_init.dart';
 import 'package:flutter/gestures.dart';
 import 'package:forteapp/login_page.dart';
 import 'package:path/path.dart';

@@ -8,6 +8,7 @@ import 'coach_profiles_page.dart';
 import 'user_profile_init.dart';
 import 'splashscreen_page.dart';
 import 'onboarding_page.dart';
+import 'skills_rates_page.dart';
 import 't_c_page.dart';
 import 'payment_location.dart';
 import 'package:forteapp/splashscreen1_page.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           SplashscreenPage.id: (context) => SplashscreenPage(),
           Splashscreen1Page.id: (context) => Splashscreen1Page(),
           OnboardingPage.id: (context) => OnboardingPage(),
+          SkillsRatesPage.id: (context) => SkillsRatesPage(),
           TCPage.id: (context) => TCPage(),
           PaymentLocationPage.id: (context) => PaymentLocationPage(),
           AthleteProfilePage.id: (context) => AthleteProfilePage(),

@@ -26,7 +26,7 @@ dependencies:
   camera:
   path_provider:
   path:
-  image_picker: ^0.6.7+2
+  image_picker: ^0.6.7+12
   overlay_container: ^0.0.4+1
   auro_avatar: "^0.1.0"
   flutter_svg: ^0.19.1
@@ -41,6 +41,7 @@ dependencies:
   intl_phone_number_input: ^0.4.6+2
   flutter_cupertino_date_picker: ^1.0.26+2
   firebase_storage: ^3.1.1
+  permission_handler: ^5.0.1+1
 
 
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:forteapp/coach_profiles_page.dart';
 import 'package:forteapp/registration_page.dart';
+import 'package:forteapp/skills_rates_page.dart';
 import 'coach_profiles_page.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:forteapp/user_profile_init.dart';
@@ -227,7 +228,9 @@ class _LoginPageState extends State<LoginPage> {
                                       email: email, password: password);
                               if (user != null) {
                                 Navigator.pushNamed(
-                                    context, UserProfileInitPage.id);
+                                    // context, UserProfileInitPage.id);
+                                    context,
+                                    UserProfileInitPage.id);
                               }
                               setState(() {
                                 showSpinner = false;
