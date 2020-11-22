@@ -30,7 +30,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   String confirmpassword;
   //bool _isSelected = false;
 
-  String TypeOfUserString;
+  String TypeOfUserString = "null";
 
   String _error;
   //validators
@@ -409,13 +409,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 // side: BorderSide(color: Color(0xFF220EE2))
                               ),
                               onPressed: () async {
-                                print("clicked");
-                                if (_formKey.currentState.validate()) {
+                                //print("clicked");
+                                if (TypeOfUserString == "null") {
+                                  setState(() {
+                                    final snackBar = SnackBar(
+                                        content: Text(
+                                            "Please select whether you are an ahtlete or an instructor"));
+                                    scaffoldKey.currentState
+                                        .showSnackBar(snackBar);
+                                  });
+                                } else if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
-                                  print("some valid stuff right here");
+                                  //print("some valid stuff right here");
                                   // } else {
                                   setState(() {
-                                    print("this ran anyway");
+                                    // print("this ran anyway");
                                     _validate = true;
                                     showSpinner = true;
                                   });
@@ -423,16 +431,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     print(email);
                                     print(password);
 
-                                    final newUser =
-                                    await _auth.createUserWithEmailAndPassword(
-                                        email: email, password: password);
+                                    final newUser = await _auth
+                                        .createUserWithEmailAndPassword(
+                                            email: email, password: password);
                                     if (newUser != null) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   UserProfileInitPage(
-                                                    usertypevalue: TypeOfUserString,
+                                                    usertypevalue:
+                                                        TypeOfUserString,
                                                   )));
                                     }
                                     setState(() {
@@ -440,13 +449,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     });
                                   } catch (e) {
                                     e.toString().contains(
-                                        'The email address is already in use')
+                                            'The email address is already in use')
                                         ? _error =
-                                    'The email address is already in use by another account.'
+                                            'The email address is already in use by another account.'
                                         : _error = e.toString();
                                     final snackBar =
-                                    SnackBar(content: Text('$_error'));
-                                    scaffoldKey.currentState.showSnackBar(snackBar);
+                                        SnackBar(content: Text('$_error'));
+                                    scaffoldKey.currentState
+                                        .showSnackBar(snackBar);
                                     //Scaffold.of(context).showSnackBar(
                                     // SnackBar(content: Text('$_error')));
                                     print(e);
@@ -711,7 +721,7 @@ Morbi facilisis orci sed egestas tempor. Vestibulum malesuada, lacus sit amet al
     if (value.isEmpty) {
       return 'Password is required';
     } else if (value.length < 6) {
-      return 'Password must be at least 4 characters';
+      return 'Password must be at least 6 characters';
     }
     return null;
   }
